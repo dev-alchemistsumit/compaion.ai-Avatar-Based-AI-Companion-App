@@ -1,0 +1,174 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> /Contents 7 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+7 0 obj
+<< /Length 3128 >>
+stream
+BT
+/F2 16 Tf
+20 TL
+1 0 0 1 48 738 Tm
+(Companion.ai - One-Page App Summary) Tj
+T*
+ET
+BT
+/F1 9 Tf
+12 TL
+1 0 0 1 48 704 Tm
+(Repo: companion-ai \(Next.js + TypeScript + Firebase + OpenAI + Razorpay\)) Tj
+T*
+(Generated: 2026-03-11) Tj
+T*
+ET
+BT
+/F2 11 Tf
+14 TL
+1 0 0 1 48 672 Tm
+(What It Is) Tj
+T*
+ET
+BT
+/F1 9 Tf
+12 TL
+1 0 0 1 48 649 Tm
+(A Next.js web app for chatting with character-based AI companions,) Tj
+T*
+(paired with interactive 3D avatar previews and Firebase-backed persistence.) Tj
+T*
+ET
+BT
+/F2 11 Tf
+14 TL
+1 0 0 1 48 617 Tm
+(Who It's For) Tj
+T*
+ET
+BT
+/F1 9 Tf
+12 TL
+1 0 0 1 48 594 Tm
+(- End users who want a guided, persona-driven AI companion experience \(login required\).) Tj
+T*
+ET
+BT
+/F2 11 Tf
+14 TL
+1 0 0 1 48 574 Tm
+(Key Features \(Repo Evidence\)) Tj
+T*
+ET
+BT
+/F1 9 Tf
+12 TL
+1 0 0 1 48 551 Tm
+(- Character-based chat via server-side prompts and OpenAI chat completions.) Tj
+T*
+(- 3D avatar preview \(GLB models\) rendered with react-three-fiber/drei.) Tj
+T*
+(- Firebase Auth \(email/password\) + Firestore for user profiles and chat history.) Tj
+T*
+(- Chat persistence with pagination \(Firestore queries with limit/startAfter\).) Tj
+T*
+(- Basic rate limiting \(20 req/min per user\) and concurrency/latency logging.) Tj
+T*
+(- User profile edit flow \(name/age/bio\) stored in Firestore.) Tj
+T*
+(- Razorpay order creation API + client-side checkout trigger \(subscription tiers UI\).) Tj
+T*
+ET
+BT
+/F2 11 Tf
+14 TL
+1 0 0 1 48 459 Tm
+(How It Works \(Components / Data Flow\)) Tj
+T*
+ET
+BT
+/F1 9 Tf
+12 TL
+1 0 0 1 48 436 Tm
+(- UI routes: / \(home\) -> /avatar/[avatar] \(AvatarRoom: preview + chat panels\).) Tj
+T*
+(- Preview: AvatarPreviewPanel -> 3D Canvas -> /public/models/*.glb via useGLTF.) Tj
+T*
+(- Chat client: ChatInterface -> useChat -> saves messages to Firestore, calls /api/chat.) Tj
+T*
+(- Chat API: POST /api/chat -> rateLimiter + metrics + logger -> OpenAI \(gpt-4o-mini\).) Tj
+T*
+(- History control: client sends history; server trims to last 20 messages before calling OpenAI.) Tj
+T*
+(- Persistence: users/{uid}/avatars/{character}/messages \(chat\); users/{uid} \(profile\).) Tj
+T*
+(- Payments: client opens Razorpay checkout; server creates order at /api/payments/create-order.) Tj
+T*
+(- Not found in repo.: payment webhook handler implementation \(route.ts is empty\).) Tj
+T*
+(- Not found in repo.: server-side subscription enforcement for chat limits/features.) Tj
+T*
+ET
+BT
+/F2 11 Tf
+14 TL
+1 0 0 1 48 320 Tm
+(How To Run \(Minimal\)) Tj
+T*
+ET
+BT
+/F1 9 Tf
+12 TL
+1 0 0 1 48 297 Tm
+(1\) Install: npm install) Tj
+T*
+(2\) Create .env.local with required keys:) Tj
+T*
+(   - OPENAI_API_KEY) Tj
+T*
+(   - NEXT_PUBLIC_FIREBASE_APIKEY, NEXT_PUBLIC_FIREBASE_AUTHDOMAIN, NEXT_PUBLIC_FIREBASE_PROJECTID,) Tj
+T*
+(     NEXT_PUBLIC_FIREBASE_STORAGEBUCKET, NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID,) Tj
+T*
+(     NEXT_PUBLIC_FIREBASE_APPID, NEXT_PUBLIC_FIREBASE_MEASUREMENTID) Tj
+T*
+(   - RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET, NEXT_PUBLIC_RAZORPAY_KEY_ID \(if using payments\)) Tj
+T*
+(   - Not found in repo.: .env.example template) Tj
+T*
+(3\) Run dev server: npm run dev) Tj
+T*
+(4\) Open: http://localhost:3000) Tj
+T*
+ET
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000267 00000 n 
+0000000337 00000 n 
+0000000412 00000 n 
+0000000480 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+3659
+%%EOF

@@ -1,0 +1,1002 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Companion.ai</title>
+    <meta
+      name="description"
+      content="Companion.ai is an AI-powered conversational system designed to feel personal, continuous, and emotionally aware — not just responsive."
+    />
+    <link rel="preload" as="image" href="logo.png" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3CradialGradient id='g' cx='35%25' cy='30%25'%3E%3Cstop offset='0%25' stop-color='%23fff'/%3E%3Cstop offset='55%25' stop-color='%23a8b8ff'/%3E%3Cstop offset='100%25' stop-color='%235b63ff'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M18 33c0-9 7-16 16-16s16 7 16 16-7 16-16 16c-4.5 0-8.6-1.7-11.7-4.6L18 48l3.2-7.7A15.9 15.9 0 0 1 18 33Z' fill='%230b1020' opacity='.92'/%3E%3Ccircle cx='28' cy='33' r='2.6' fill='%23fff'/%3E%3Ccircle cx='36' cy='33' r='2.6' fill='%23fff'/%3E%3Ccircle cx='44' cy='33' r='2.6' fill='%23fff'/%3E%3C/svg%3E"
+    />
+    <style>
+      :root {
+        --bg0: #f7f8ff;
+        --bg1: #fff;
+        --ink: #0b1020;
+        --muted: rgba(11, 16, 32, 0.7);
+        --hair: rgba(11, 16, 32, 0.12);
+        --card: rgba(255, 255, 255, 0.78);
+        --accent: #5b63ff;
+        --good: #0ea5e9;
+        --warn: #f59e0b;
+        --shadow: 0 18px 60px rgba(16, 26, 64, 0.14);
+        --r: 18px;
+        --max: 1120px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg0: #090b14;
+          --bg1: #0d1020;
+          --ink: #eef1ff;
+          --muted: rgba(238, 241, 255, 0.74);
+          --hair: rgba(238, 241, 255, 0.16);
+          --card: rgba(13, 16, 32, 0.72);
+          --accent: #93a1ff;
+          --shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        font:
+          500 16px/1.5 ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial;
+        background:
+          radial-gradient(
+            1100px 650px at 18% 12%,
+            rgba(91, 99, 255, 0.18),
+            transparent 58%
+          ),
+          radial-gradient(
+            900px 520px at 86% 18%,
+            rgba(14, 165, 233, 0.12),
+            transparent 55%
+          ),
+          linear-gradient(180deg, var(--bg0), var(--bg1));
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .container {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background: color-mix(in oklab, var(--bg1) 76%, transparent);
+        border-bottom: 1px solid var(--hair);
+      }
+      .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 12px 0;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 220px;
+      }
+      .badge {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        box-shadow: var(--shadow);
+        background: radial-gradient(
+          60% 60% at 35% 30%,
+          rgba(255, 255, 255, 0.86),
+          rgba(91, 99, 255, 0.85)
+        );
+        border: 1px solid color-mix(in oklab, var(--hair) 75%, transparent);
+      }
+      .badge svg {
+        width: 22px;
+        height: 22px;
+      }
+      nav {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .nav {
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        color: var(--muted);
+      }
+      .nav:hover {
+        text-decoration: none;
+        color: var(--ink);
+        border-color: var(--hair);
+        background: color-mix(in oklab, var(--bg1) 70%, transparent);
+      }
+      .hero {
+        padding: 54px 0 12px;
+      }
+      .heroGrid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 18px;
+        align-items: center;
+      }
+      @media (max-width: 920px) {
+        .heroGrid {
+          grid-template-columns: 1fr;
+        }
+      }
+      h1 {
+        font-size: clamp(34px, 4.2vw, 54px);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+        margin: 12px 0 10px;
+      }
+      .lede {
+        color: var(--muted);
+        font-size: 18px;
+        max-width: 64ch;
+        margin: 0 0 16px;
+      }
+      .kicker {
+        display: inline-flex;
+        gap: 10px;
+        align-items: center;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--hair);
+        background: color-mix(in oklab, var(--card) 78%, transparent);
+        box-shadow: var(--shadow);
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--good);
+        box-shadow: 0 0 0 6px color-mix(in oklab, var(--good) 14%, transparent);
+      }
+      .row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border-radius: 999px;
+        padding: 10px 14px;
+        border: 1px solid var(--hair);
+        background: color-mix(in oklab, var(--bg1) 78%, transparent);
+        box-shadow: var(--shadow);
+        font-weight: 700;
+      }
+      .btn:hover {
+        text-decoration: none;
+        transform: translateY(-1px);
+        border-color: color-mix(in oklab, var(--accent) 44%, var(--hair));
+      }
+      .btn.primary {
+        background: linear-gradient(
+          135deg,
+          color-mix(in oklab, var(--accent) 94%, #fff),
+          color-mix(in oklab, var(--good) 40%, #fff)
+        );
+        color: #0b1020;
+      }
+      .btn svg {
+        width: 18px;
+        height: 18px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .btn:hover {
+          transform: none;
+        }
+      }
+      .panel {
+        border-radius: 26px;
+        border: 1px solid var(--hair);
+        background: color-mix(in oklab, var(--card) 86%, transparent);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .panelTop {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 14px;
+        align-items: center;
+        padding: 16px;
+      }
+      @media (max-width: 540px) {
+        .panelTop {
+          grid-template-columns: 1fr;
+          text-align: center;
+          justify-items: center;
+        }
+      }
+      .logo {
+        width: 120px;
+        height: 120px;
+        border-radius: 26px;
+        border: 1px solid color-mix(in oklab, var(--hair) 74%, transparent);
+        background: linear-gradient(
+          135deg,
+          rgba(91, 99, 255, 0.22),
+          rgba(14, 165, 233, 0.14)
+        );
+        display: grid;
+        place-items: center;
+      }
+      .logo img {
+        width: 96px;
+        height: 96px;
+        object-fit: contain;
+        filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.14));
+      }
+      .panelBottom {
+        padding: 14px 16px 16px;
+        border-top: 1px solid var(--hair);
+      }
+      .mini {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--hair);
+        background: color-mix(in oklab, var(--bg1) 72%, transparent);
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .chip svg {
+        width: 16px;
+        height: 16px;
+        opacity: 0.9;
+      }
+      section {
+        padding: 26px 0;
+      }
+      .head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+      h2 {
+        margin: 0;
+        letter-spacing: -0.03em;
+        font-size: 24px;
+      }
+      .hint {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+      }
+      .card {
+        border-radius: var(--r);
+        border: 1px solid var(--hair);
+        background: color-mix(in oklab, var(--card) 88%, transparent);
+        box-shadow: 0 10px 28px rgba(16, 26, 64, 0.14);
+        padding: 14px;
+        min-height: 84px;
+      }
+      .card h3 {
+        margin: 0 0 6px;
+        font-size: 15px;
+        letter-spacing: -0.02em;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .quote {
+        border-radius: 26px;
+        border: 1px solid var(--hair);
+        background: linear-gradient(
+          135deg,
+          color-mix(in oklab, var(--accent) 12%, transparent),
+          color-mix(in oklab, var(--bg1) 82%, transparent)
+        );
+        box-shadow: var(--shadow);
+        padding: 16px;
+      }
+      .quote p {
+        margin: 0;
+        font-size: 18px;
+      }
+      .quote small {
+        display: inline-block;
+        margin-top: 10px;
+        color: var(--muted);
+      }
+      .progress {
+        height: 14px;
+        border-radius: 999px;
+        overflow: hidden;
+        border: 1px solid var(--hair);
+        background: color-mix(in oklab, var(--bg1) 76%, transparent);
+      }
+      .bar {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(
+          90deg,
+          var(--accent),
+          color-mix(in oklab, var(--good) 72%, var(--accent))
+        );
+      }
+      figure {
+        margin: 0;
+      }
+      .media {
+        border-radius: 26px;
+        border: 1px solid var(--hair);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        background: color-mix(in oklab, var(--card) 86%, transparent);
+      }
+      .media img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .cap {
+        padding: 12px 14px;
+        border-top: 1px solid var(--hair);
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .shots {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 12px;
+      }
+      .shot {
+        border-radius: 26px;
+        overflow: hidden;
+        border: 1px solid var(--hair);
+        box-shadow: 0 10px 28px rgba(16, 26, 64, 0.14);
+        background: color-mix(in oklab, var(--card) 86%, transparent);
+      }
+      .shot img {
+        width: 100%;
+        height: 320px;
+        object-fit: cover;
+        display: block;
+      }
+      @media (max-width: 920px) {
+        .shot img {
+          height: 260px;
+        }
+      }
+      .callout {
+        border-radius: 26px;
+        border: 1px solid color-mix(in oklab, var(--warn) 34%, var(--hair));
+        background: linear-gradient(
+          135deg,
+          color-mix(in oklab, var(--warn) 16%, transparent),
+          color-mix(in oklab, var(--bg1) 88%, transparent)
+        );
+        box-shadow: var(--shadow);
+        padding: 16px;
+      }
+      .callout h3 {
+        margin: 0 0 8px;
+        font-size: 16px;
+      }
+      .callout p {
+        margin: 0;
+        color: var(--muted);
+      }
+      footer {
+        padding: 26px 0 38px;
+        color: var(--muted);
+        border-top: 1px solid var(--hair);
+        margin-top: 16px;
+      }
+      .foot {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      code.inline {
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        font-size: 0.95em;
+        padding: 0.1em 0.35em;
+        border: 1px solid var(--hair);
+        border-radius: 8px;
+        background: color-mix(in oklab, var(--bg1) 74%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="top">
+          <a class="brand" href="#top" aria-label="Companion.ai home">
+            <span class="badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M7 12.3c0-3 2.5-5.5 5.5-5.5S18 9.3 18 12.3s-2.5 5.5-5.5 5.5c-1.5 0-2.8-.5-3.9-1.5l-1.6.8.7-1.7c-.5-.9-.7-1.9-.7-3.1Z"
+                  stroke="rgba(11,16,32,.92)"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M9.2 12.2h.02M12.1 12.2h.02M15 12.2h.02"
+                  stroke="rgba(11,16,32,.92)"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </span>
+            <div>
+              <strong>Companion.ai</strong>
+              <div class="mini">Continuity, not just chat</div>
+            </div>
+          </a>
+          <nav aria-label="Primary">
+            <a class="nav" href="#features">Features</a>
+            <a class="nav" href="#roadmap">Roadmap</a>
+            <a class="nav" href="#architecture">Architecture</a>
+            <a class="nav" href="#support">Support</a>
+            <a class="nav" href="#about">About</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <div class="container">
+        <div class="hero">
+          <div class="heroGrid">
+            <div>
+              <div class="kicker">
+                <span class="dot" aria-hidden="true"></span
+                ><span
+                  ><strong>AI that feels personal</strong> (without pretending
+                  to be human)</span
+                >
+              </div>
+              <h1>Conversations that feel like they <em>remember</em> you.</h1>
+              <p class="lede">
+                <strong>Companion.ai</strong> is an AI-powered conversational
+                system designed to feel
+                <em>personal, continuous, and emotionally aware</em> — not just
+                responsive. It explores one simple question:
+                <em>Can an AI feel like it remembers you?</em>
+              </p>
+              <div class="row">
+                <a class="btn primary" href="#support">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M12 21s-7-4.3-9.6-9C.1 7.4 3 4 6.7 4c1.9 0 3.6.9 4.8 2.3C12.7 4.9 14.4 4 16.3 4 20 4 22.9 7.4 21.6 12 19 16.7 12 21 12 21Z"
+                      stroke="rgba(11,16,32,.9)"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  Support the build
+                </a>
+                <a class="btn" href="companion-ai-summary.pdf">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M14 3v5h5"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  1-page summary (PDF)
+                </a>
+                <a class="btn" href="README.md">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M4 19V6a2 2 0 0 1 2-2h12v15"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M6 17h14"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  Read README
+                </a>
+              </div>
+            </div>
+
+            <aside class="panel" aria-label="Project snapshot">
+              <div class="panelTop">
+                <div class="logo">
+                  <img src="logo.png" alt="Companion.ai logo" />
+                </div>
+                <div>
+                  <div class="mini">Current state</div>
+                  <div
+                    style="
+                      font-weight: 800;
+                      font-size: 18px;
+                      letter-spacing: -0.02em;
+                    "
+                  >
+                    Evolving in public
+                  </div>
+                  <div class="mini" style="margin-top: 8px">
+                    Stack: <code class="inline">Next.js</code>
+                    <code class="inline">TypeScript</code>
+                    <code class="inline">Firebase</code>
+                    <code class="inline">Node.js</code>
+                    <code class="inline">Vercel</code>
+                  </div>
+                </div>
+              </div>
+              <div class="panelBottom">
+                <div class="mini">Tech stack logos</div>
+                <div class="chips" aria-label="Tech stack">
+                  <span class="chip" title="Next.js"
+                    ><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M12 2c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2Z"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        opacity=".85"
+                      />
+                      <path
+                        d="M8 16V8l8 8V8"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      /></svg
+                    >Next.js</span
+                  >
+                  <span class="chip" title="TypeScript"
+                    ><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M4.5 4.5h15v15h-15z"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                      />
+                      <path
+                        d="M10 9h4M12 9v8"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                      />
+                      <path
+                        d="M14.7 15.7c.5 1 2.8 1 2.8-.4 0-2-3.6-1.3-3.6-3.3 0-2 2.9-2.4 3.9-1.1"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                      /></svg
+                    >TypeScript</span
+                  >
+                  <span class="chip" title="Firebase"
+                    ><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M12 2l6 20-6-3-6 3 6-20Z"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M12 7.3 8.2 19l3.8-2 3.8 2L12 7.3Z"
+                        fill="currentColor"
+                        opacity=".18"
+                      /></svg
+                    >Firebase</span
+                  >
+                  <span class="chip" title="Node.js"
+                    ><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M12 2.5 20 7v10l-8 4.5L4 17V7l8-4.5Z"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M9 10.2c.7-.8 1.7-1.2 3-1.2 2.2 0 3.6 1.2 3.6 3.2 0 2.1-1.5 3.5-3.9 3.5-1.9 0-3.4-.8-4.1-2.2"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                      /></svg
+                    >Node.js</span
+                  >
+                  <span class="chip" title="Vercel"
+                    ><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M12 5 21 19H3L12 5Z"
+                        fill="currentColor"
+                        opacity=".84"
+                      /></svg
+                    >Vercel</span
+                  >
+                </div>
+                <div class="mini" style="margin-top: 10px">
+                  System-level thinking: logging, metrics, rate limiting,
+                  latency tracking, pagination, prompt orchestration.
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+
+        <section aria-label="Core question">
+          <div class="quote">
+            <p>“Can an AI feel like it remembers you?”</p>
+            <small>That’s the whole experiment — one layer at a time.</small>
+          </div>
+        </section>
+
+        <section aria-label="Current state">
+          <div class="head">
+            <h2>🚀 Current state</h2>
+            <div class="hint">
+              Not finished. Not pretending to be. Just improving.
+            </div>
+          </div>
+          <div class="cards">
+            <div class="card">
+              <h3>Real-time conversational AI</h3>
+              <p>Interactive responses with a focus on flow and continuity.</p>
+            </div>
+            <div class="card">
+              <h3>Persistent chat experience</h3>
+              <p>Session-aware history and scalable storage patterns.</p>
+            </div>
+            <div class="card">
+              <h3>Character-based interaction models</h3>
+              <p>Personalities that feel consistent across sessions.</p>
+            </div>
+            <div class="card">
+              <h3>System-level thinking</h3>
+              <p>
+                Logging, rate limiting, latency tracking, and pagination
+                built-in.
+              </p>
+            </div>
+          </div>
+          <div class="mini" style="margin-top: 10px">
+            If this project resonates, consider starring the repo — it helps
+            more than you’d think.
+          </div>
+        </section>
+
+        <section id="features" aria-label="Features">
+          <div class="head">
+            <h2>Features</h2>
+            <div class="hint">
+              Character-driven, persistent, and engineered for real-world
+              reliability.
+            </div>
+          </div>
+          <div class="cards">
+            <div class="card">
+              <h3>Character personalities</h3>
+              <p>
+                Character-based AI personalities for distinct interaction
+                styles.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Firebase persistence</h3>
+              <p>
+                DB indexing, scalable reads/writes, and a persistent chat
+                experience.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Streaming responses</h3>
+              <p>Incremental output for a more natural conversational flow.</p>
+            </div>
+            <div class="card">
+              <h3>Rate limiting</h3>
+              <p>Protects the system and keeps things fair under load.</p>
+            </div>
+            <div class="card">
+              <h3>Metrics + logging</h3>
+              <p>Observability for real-world engineering and iteration.</p>
+            </div>
+            <div class="card">
+              <h3>Latency tracking</h3>
+              <p>Measure and improve end-to-end response time.</p>
+            </div>
+            <div class="card">
+              <h3>Error handling</h3>
+              <p>Fail loudly for devs; fail gently for users.</p>
+            </div>
+            <div class="card">
+              <h3>History trimming</h3>
+              <p>Cost control while keeping context quality high.</p>
+            </div>
+            <div class="card">
+              <h3>Pagination</h3>
+              <p>Efficient history retrieval without heavy payloads.</p>
+            </div>
+            <div class="card">
+              <h3>Concurrency</h3>
+              <p>Handles parallel conversations and system tasks.</p>
+            </div>
+            <div class="card">
+              <h3>Prompt orchestration</h3>
+              <p>System design patterns for consistent AI behavior.</p>
+            </div>
+            <div class="card">
+              <h3>Real-time UX</h3>
+              <p>Built to feel present — not like a form submission.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="support" aria-label="Funding goal">
+          <div class="head">
+            <h2>💡 Funding goal</h2>
+            <div class="hint">
+              Goal: <strong>$500</strong> • Current: <strong>$0</strong>
+            </div>
+          </div>
+          <div
+            class="progress"
+            role="progressbar"
+            aria-label="Funding progress"
+            aria-valuemin="0"
+            aria-valuemax="500"
+            aria-valuenow="0"
+          >
+            <div class="bar"></div>
+          </div>
+          <div class="card" style="margin-top: 12px">
+            <h3>Support is optional</h3>
+            <p>
+              The system will continue evolving regardless — funding accelerates
+              deeper personalization, better safety, and bigger features. (Also:
+              keeps the coffee situation “non-tragic”.)
+            </p>
+          </div>
+        </section>
+
+        <section id="roadmap" aria-label="Unlock roadmap">
+          <div class="head">
+            <h2>🔓 Features to be unlocked (at $500)</h2>
+            <div class="hint">Security, memory, and richer experiences.</div>
+          </div>
+          <div class="cards">
+            <div class="card">
+              <h3>Core product</h3>
+              <p>
+                Subscription system • Feature gating • Multi-device login &amp;
+                session awareness
+              </p>
+            </div>
+            <div class="card">
+              <h3>Security &amp; infra</h3>
+              <p>
+                End-to-end encryption • Advanced security practices &amp;
+                protections
+              </p>
+            </div>
+            <div class="card">
+              <h3>AI experience</h3>
+              <p>
+                Persistent memory • Avatar expressions • Audio conversations •
+                Experimental video avatars
+              </p>
+            </div>
+            <div class="card">
+              <h3>Behavioral intelligence</h3>
+              <p>
+                Last seen • Last topic continuity • Mood approximation
+                (non-clinical) • Tone awareness • Preference tracking
+              </p>
+            </div>
+            <div class="card">
+              <h3>Deep personalization</h3>
+              <p>
+                Preferences • Mindset patterns • Occupation context •
+                Relationship-aware memory • Connected memory graphs
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section aria-label="Design philosophy">
+          <div class="head">
+            <h2>🧠 Design philosophy</h2>
+            <div class="hint">Not a traditional SaaS — an evolving system.</div>
+          </div>
+          <div class="cards">
+            <div class="card">
+              <h3>Continuity</h3>
+              <p>Prefer ongoing context over stateless interaction.</p>
+            </div>
+            <div class="card">
+              <h3>Memory</h3>
+              <p>Prefer remembering patterns over repeating prompts.</p>
+            </div>
+            <div class="card">
+              <h3>Presence</h3>
+              <p>Prefer feeling “here” over just being correct.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="architecture" aria-label="Architecture diagram">
+          <div class="head">
+            <h2>Architecture diagram</h2>
+            <div class="hint">From the README (linked image).</div>
+          </div>
+          <figure class="media">
+            <img
+              src="https://github-production-user-asset-6210df.s3.amazonaws.com/58788722/558627486-01e40c17-a2e6-4cfd-899a-bb59f2610106.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260323%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260323T105716Z&X-Amz-Expires=300&X-Amz-Signature=c69c893466d39f72a64a7bdc31aec5aa21d03e94af64424f118e4dca74272820&X-Amz-SignedHeaders=host"
+              alt="Companion.ai architecture diagram"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+            />
+            <div class="cap">
+              If this doesn’t load (offline / blocked), swap the URL for a local
+              diagram image.
+            </div>
+          </figure>
+        </section>
+
+        <section aria-label="Visuals">
+          <div class="head">
+            <h2>Visuals</h2>
+            <div class="hint">
+              Embedded shots from <code class="inline">public/assets</code>.
+            </div>
+          </div>
+          <div class="shots">
+            <div class="shot">
+              <img
+                src="public/assets/register.jpg"
+                alt="Companion.ai register screen"
+                loading="lazy"
+              />
+            </div>
+            <div class="shot">
+              <img
+                src="public/assets/Field/field.jpg"
+                alt="Companion.ai screenshot"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section aria-label="Important note">
+          <div class="callout">
+            <h3>⚠️ Important note</h3>
+            <p>
+              Companion.ai may feel personal, but it is still an AI system. It
+              does <strong>not</strong> truly understand emotions, it does
+              <strong>not</strong> replace real human relationships, and it
+              should be used with awareness and balance. It simulates continuity
+              — not consciousness.
+            </p>
+          </div>
+        </section>
+
+        <section id="about" aria-label="About">
+          <div class="head">
+            <h2>👨‍💻 About the developer</h2>
+            <div class="hint">
+              Built independently by <strong>Sumit</strong>.
+            </div>
+          </div>
+          <div class="cards">
+            <div class="card">
+              <h3>Focus</h3>
+              <p>
+                AI systems • Product thinking • Real-world engineering •
+                Human-centered design
+              </p>
+            </div>
+            <div class="card">
+              <h3>Vision</h3>
+              <p>
+                Explore AI, memory, human interaction, and emotional continuity
+                — and build something people return to.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Final thought</h3>
+              <p>
+                This is not just a project. It is a system being shaped in
+                public — one layer at a time.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="foot">
+          <div>© <span id="year"></span> Companion.ai</div>
+          <div class="mini">
+            Files: <a href="README.md">README.md</a> •
+            <a href="companion-ai-summary.pdf">companion-ai-summary.pdf</a> •
+            <a href="logo.png">logo.png</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = String(
+        new Date().getFullYear(),
+      );
+    </script>
+  </body>
+</html>
